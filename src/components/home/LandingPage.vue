@@ -67,7 +67,7 @@ export default {
       display: flex;
       justify-content: center;
       img {
-        width: 24rem;
+        width: 20rem;
       }
     }
   }

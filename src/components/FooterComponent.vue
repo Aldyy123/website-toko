@@ -32,6 +32,9 @@
               </div>
           </div>
       </div>
+      <div class="reserved">
+          <p>&copy; Copyright || Reserved By Developer &hearts; Arsy Digicom</p>
+      </div>
   </footer>
 </template>
 
@@ -42,6 +45,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+footer{
+    margin-top: 5rem!important;
+}
+.reserved{
+    background: #9B7DDB;
+    padding: 10px;
+    color: white;
+    text-align: center;
+}
 @media only screen and (max-width: 576px) {
     .footer-inner {
         display: grid;
@@ -62,8 +74,32 @@ export default {
 
     .footer-nav{
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr;
     }
+    .footer-logo{
+            grid-row-start: 2;
+            img{
+                width: 70%;
+            }
+        }
+    }
+}
+@media only screen and (min-width: 768px) {
+    .footer-inner{
+        display: grid;
+        grid-template-columns: 15rem auto;
+
+         .footer-nav{
+        display: grid;
+        justify-content: center;
+        grid-template-columns: repeat(3, auto);
+    }
+    .footer-logo{
+            grid-row-start: 1;
+            img{
+                width: 70%;
+            }
+        }
     }
 }
 </style>

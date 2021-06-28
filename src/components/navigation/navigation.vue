@@ -1,9 +1,9 @@
 <template>
   <header>
     <nav>
-      <a href="/" class="logo">
+      <router-link to="/" class="logo">
         <img src="@/assets/logo.png" alt="Logo" />
-      </a>
+      </router-link>
       <div class="toggle-nav">
         <button class="btn-toggle" @click="collapse">
           <svg
@@ -24,31 +24,20 @@
       <div class="menu">
         <div class="nav-menu">
           <ul>
-            <li><a href="#">Home</a></li>
+            <li><router-link to="/">Home</router-link></li>
             <li class="dropdown">
-              <a href="#dropdown">Services</a>
+              <button>Services</button>
               <ul class="list-dropdown">
-                <li><a href="">ATK</a></li>
-                <li><a href="">Invitations</a></li>
-                <li><a href="">Games</a></li>
+                <li><router-link to="/products/atk">ATK</router-link></li>
+                <li><router-link to="/products/printing">Invitations</router-link></li>
+                <li><router-link to="/products/games">Games</router-link></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#dropdown">Company</a>
+              <button>Company</button>
               <ul class="list-dropdown">
-                <li><a href="">About</a></li>
-                <li><a href="">Blogs</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <div class="account">
-          <ul>
-            <li class="dropdown">
-              <a href="#">Account</a>
-              <ul class="list-dropdown">
-                <li><a href="#/about">About</a></li>
-                <li><a href="">Blogs</a></li>
+                <li><router-link to="/about">About</router-link></li>
+                <li><router-link to="/blogs">Blogs</router-link></li>
               </ul>
             </li>
           </ul>
@@ -76,7 +65,7 @@ export default {
   nav {
     background: #fdfaf6 !important;
     display: grid;
-    grid-template-columns: 150px 1fr 150px;
+    // grid-template-columns: 150px 1fr 150px;
     position: relative;
     .logo {
       display: flex;
@@ -98,7 +87,7 @@ export default {
       right: 100rem !important;
       opacity: 0;
       width: 90%;
-      position: absolute;
+      position: fixed;
       background: rgb(117, 50, 205);
       height: 100vh;
     }
@@ -108,38 +97,30 @@ export default {
     }
     .nav-menu ul {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      height: 200px;
-      justify-content: space-around;
+      display: grid;
+      height: auto;
     }
     .dropdown {
-      display: flex;
-      flex-direction: column;
-      // background: darksalmon;
-      padding: 20px;
-      position: relative;
+      display: grid;
+      padding: 10px;
+       button{
+        text-align: left;
+        display: block;
+      }
       &:hover ul.list-dropdown {
-        display: flex;
         visibility: visible;
         opacity: 1;
+        height: 6rem;
       }
       ul.list-dropdown {
         visibility: hidden;
         opacity: 0;
+        padding: 5px;
         transition: all 0.3s ease;
-        width: 200px;
-        flex-direction: column;
-        z-index: 999999999;
-        background: rgb(255, 0, 0);
+        width: auto;
+        background: rgb(0, 60, 255);
         list-style-type: none;
-        align-items: center;
-        right: 0rem;
-        justify-content: space-evenly;
-        top: 35px;
-        height: 200px;
-        // right: 0px;
-        position: absolute;
+        height: 0;
         li a {
           margin-right: 40px;
           display: block;
@@ -152,7 +133,6 @@ export default {
       align-items: center;
       grid-column-start: 12;
       grid-row-start: 1;
-      background: yellow;
       button {
         cursor: pointer;
         background: transparent;
@@ -162,10 +142,6 @@ export default {
           width: 32px;
         }
       }
-    }
-    .account {
-      align-items: center;
-      justify-content: space-evenly;
     }
   }
 }
@@ -197,7 +173,7 @@ export default {
       right: 100rem !important;
       opacity: 0;
       width: 90%;
-      position: absolute;
+      position: fixed;
       background: rgb(117, 50, 205);
       height: 100vh;
     }
@@ -207,19 +183,18 @@ export default {
     }
     .nav-menu ul {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      height: 200px;
-      justify-content: space-around;
+       display: grid;
+      height: auto;
     }
     .dropdown {
-      display: flex;
-      flex-direction: column;
-      // background: darksalmon;
+      display: grid;
       padding: 20px;
-      position: relative;
+      button{
+        display: block;
+        text-align: left;
+      }
       &:hover ul.list-dropdown {
-        display: flex;
+        height: 7rem;
         visibility: visible;
         opacity: 1;
       }
@@ -227,18 +202,11 @@ export default {
         visibility: hidden;
         opacity: 0;
         transition: all 0.3s ease;
-        width: 200px;
-        flex-direction: column;
-        z-index: 999999999;
+        display: grid;
+        padding: 10px;
         background: rgb(255, 0, 0);
         list-style-type: none;
-        align-items: center;
-        right: 0rem;
-        justify-content: space-evenly;
-        top: 35px;
-        height: 200px;
-        // right: 0px;
-        position: absolute;
+        height: 0;
         li a {
           margin-right: 40px;
           display: block;
@@ -251,7 +219,6 @@ export default {
       align-items: center;
       grid-column-start: 12;
       grid-row-start: 1;
-      background: yellow;
       button {
         cursor: pointer;
         background: transparent;
@@ -261,10 +228,6 @@ export default {
           width: 32px;
         }
       }
-    }
-    .account {
-      align-items: center;
-      justify-content: space-evenly;
     }
   }
 }
@@ -305,25 +268,29 @@ export default {
       flex-direction: column;
       padding: 0;
       position: relative;
+
       &:hover ul.list-dropdown {
-        display: flex;
+        height: 10rem;
         visibility: visible;
+        overflow: visible;
         opacity: 1;
       }
       ul.list-dropdown {
+        position: absolute;
         visibility: hidden;
+        overflow: hidden;
+        top: 20px;
+        left: -20px;
         opacity: 0;
         transition: all 0.3s ease;
-        width: auto;
-        height: auto;
-        flex-direction: column;
+        width: 10rem;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(3, auto);
+        z-index: 999999999;
         background: rgb(255, 0, 0);
         list-style-type: none;
-        align-items: center;
-        justify-content: center;
-        top: 35px;
-        // right: 0px;
-        position: absolute;
+        height: 0;
         li a {
           margin-right: 40px;
           display: block;
@@ -334,10 +301,6 @@ export default {
       padding: 10px 15px;
       color: black !important;
       text-decoration: none;
-    }
-    .account {
-      align-items: center;
-      justify-content: center;
     }
   }
 }

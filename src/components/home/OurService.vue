@@ -5,10 +5,10 @@
       <hr />
     </div>
     <div class="list-service">
-      <a
-        href="#"
+      <router-link
         class="service"
         v-for="(service, index) in services"
+        :to="service.link"
         :key="index"
       >
         <div class="service-header">
@@ -16,7 +16,7 @@
         </div>
         <h3>{{ service.title }}</h3>
         <p>{{ service.text }}</p>
-      </a>
+      </router-link>
     </div>
   </section>
 </template>
@@ -30,17 +30,20 @@ export default {
         {
           img: require('@/assets/icon/gamepad.svg'),
           text: 'List games untuk mu para gamers',
-          title: 'Games'
+          title: 'Games',
+          link: '/products/games'
         },
         {
           img: require('@/assets/icon/print.svg'),
           text: 'Membuat percetakan undangan, Sticker, laminating',
-          title: 'Percetakan'
+          title: 'Percetakan',
+          link: '/products/printing'
         },
         {
           img: require('@/assets/icon/type.svg'),
           text: 'Menyediakan alat tulis kantor',
-          title: 'Alat Tulis kantor'
+          title: 'Alat Tulis kantor',
+          link: '/products/atk'
         }
       ]
     }
@@ -110,7 +113,7 @@ export default {
 }
 @media only screen and (min-width: 1200px) {
   section {
-    .header hr{
+    .header hr {
       width: 20rem;
     }
     .list-service {

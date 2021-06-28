@@ -16,10 +16,6 @@
       </div>
       <our-service></our-service>
     </div>
-    <div class="create-account">
-      <h2>Create Account??</h2>
-      <a class="account-cta" href="#">Register</a>
-    </div>
   </main>
   <footer-component></footer-component>
 </template>
@@ -90,22 +86,6 @@ export default {
       }
     }
   }
-  .create-account {
-    background: #185adb;
-    color: white;
-    padding: 20px;
-    display: grid;
-    width: auto;
-    grid-template-columns: 15rem;
-    justify-content: center;
-    text-align: center;
-    a {
-      text-decoration: none;
-      background: #fdfaf6;
-      border-radius: 5px;
-      padding: 10px 20px;
-    }
-  }
 }
 @media only screen and (min-width: 576px) {
   .reason-why {
@@ -123,22 +103,6 @@ export default {
       img {
         width: 25% !important;
       }
-    }
-  }
-  .create-account {
-    background: #185adb;
-    color: white;
-    width: auto;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 20rem;
-    justify-content: center;
-    text-align: center;
-    a {
-      text-decoration: none;
-      background: #fdfaf6;
-      border-radius: 5px;
-      padding: 10px 20px;
     }
   }
 }
