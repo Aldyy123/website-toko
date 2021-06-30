@@ -52,6 +52,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.service:hover{
+  background: #aaa4a4!important;
+}
 @media only screen and (max-width: 576px), screen and (min-width: 576px) {
   section {
     .header {
@@ -72,6 +75,7 @@ export default {
       .service {
         background: linear-gradient(to bottom, #9b7ddb, #e848c5, #aaa4a4);
         border: 1px solid;
+        transition: all 0.3s ease;
         border-radius: 20px;
         .service-header {
           padding: 10px;

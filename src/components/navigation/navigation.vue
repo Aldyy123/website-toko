@@ -106,6 +106,11 @@ export default {
        button{
         text-align: left;
         display: block;
+        color: white!important;
+        background: none;
+        border: none;
+        border-radius: 20px;
+        padding: 10px;
       }
       &:hover ul.list-dropdown {
         visibility: visible;
@@ -118,12 +123,14 @@ export default {
         padding: 5px;
         transition: all 0.3s ease;
         width: auto;
-        background: rgb(0, 60, 255);
+        // background: rgb(0, 60, 255);
         list-style-type: none;
         height: 0;
         li a {
           margin-right: 40px;
           display: block;
+          padding : 5px;
+          background: saddlebrown;
         }
       }
     }
@@ -192,6 +199,11 @@ export default {
       button{
         display: block;
         text-align: left;
+        background: none;
+        font-weight: bold;
+        color: white;
+        padding: 10px;
+        border: none;
       }
       &:hover ul.list-dropdown {
         height: 7rem;
@@ -204,12 +216,13 @@ export default {
         transition: all 0.3s ease;
         display: grid;
         padding: 10px;
-        background: rgb(255, 0, 0);
         list-style-type: none;
         height: 0;
         li a {
           margin-right: 40px;
           display: block;
+          padding : 5px;
+          background: saddlebrown;
         }
       }
     }
@@ -268,6 +281,9 @@ export default {
       flex-direction: column;
       padding: 0;
       position: relative;
+      button{
+        color: black;
+      }
 
       &:hover ul.list-dropdown {
         height: 10rem;
@@ -288,12 +304,15 @@ export default {
         grid-template-columns: 100%;
         grid-template-rows: repeat(3, auto);
         z-index: 999999999;
-        background: rgb(255, 0, 0);
+        background: rgb(185, 177, 177);
         list-style-type: none;
         height: 0;
+          margin: 10px;
         li a {
           margin-right: 40px;
           display: block;
+          background: none!important;
+          // color: #
         }
       }
     }

@@ -4,6 +4,7 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import { openDB } from 'idb'
+import Paginate from 'vuejs-paginate'
 
 const objectIdb = {
   Db: 'favorite',
@@ -35,7 +36,7 @@ createApp(App)
         return (await apa).get(objectIdb.ObjectStore, value)
       }
     }
-  })
+  }).component('paginate', Paginate)
   .use(store)
   .use(router)
   .mount('#app')

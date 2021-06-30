@@ -16,12 +16,12 @@
           <button><img src="@/assets/icon/favorite.svg" alt="sdfsde" /></button>
         </div>
         <div class="btn-action">
-          <li><a :href=linkWa>Chat Whatsapp</a></li>
+          <li><a :href=linkWa target="_blank">Chat Whatsapp</a></li>
         </div>
         <div class="images-slider">
-          <img @click="imageChange"
-            src="https://firebasestorage.googleapis.com/v0/b/arsy-70f02.appspot.com/o/1.jpg?alt=media&token=573c900d-4b0d-402f-bdd5-60a6ad2152fe"
-            alt=""
+          <img @click="imageChange" v-for="(image, i) in product.result.images" :key="i"
+            :src="image"
+            :alt="i"
           />
         </div>
       </div>
@@ -108,11 +108,11 @@ main {
     }
     .images-slider {
       display: grid;
-      grid-template-columns: repeat(2, auto);
+      grid-template-columns: repeat(3, auto);
       gap: 5px;
       grid-row-start: 1;
       img {
-        width: 100%;
+        width: 40%;
       }
     }
     .btn-action {
@@ -121,6 +121,7 @@ main {
         display: block;
         padding: 10px 1rem;
         background: #185adb;
+        color: white;
       }
     }
   }
@@ -170,6 +171,7 @@ main {
         text-align: center;
         display: block;
         padding: 10px 1rem;
+        color: white;
         background: #185adb;
       }
     }
