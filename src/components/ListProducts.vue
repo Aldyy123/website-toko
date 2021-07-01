@@ -24,12 +24,13 @@
         </div>
       </div>
       <div class="card-bottom">
-        <li><a href="https://www.google.com">Order Now</a></li>
+        <li><a :href="linkWa" target="_blank">Order Now</a></li>
       </div>
     </div>
     </div>
-  <div class="card-footer pb-0 pt-3">
-    <ul
+    <div class="card-footer pb-0 pt-3" v-if="props.search === ''">
+      <VueTailwindPagination :current="products.result.page" :total="products.result.count" :per-page="products.result.perPage" @page-changed="paginate"/>
+    <!-- <ul
       v-if="products.result.products && products.result.count"
       class="pagination"
     >
@@ -85,7 +86,7 @@
           >Last</router-link
         >
       </li>
-    </ul>
+    </ul> -->
   </div>
   </section>
 </template>
@@ -93,12 +94,13 @@
 <script>
 /* eslint-disable no-unused-vars */
 /* eslint-disable vue/no-unused-components */
-
+import '@ocrv/vue-tailwind-pagination/dist/style.css'
 import axios from 'axios'
-import { ref, watchEffect, onMounted, computed } from 'vue'
+import { ref, watchEffect, onUpdated, computed } from 'vue'
 import config from '../store/config'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter, RouterLink, useLink } from 'vue-router'
 import Pagination from 'v-pagination-3'
+import VueTailwindPagination from '@ocrv/vue-tailwind-pagination'
 
 export default {
   name: 'list-products',
@@ -113,22 +115,39 @@ export default {
     }
   },
   components: {
-    Pagination
+    Pagination,
+    VueTailwindPagination
   },
   setup (props) {
     const products = ref([])
     const route = useRoute()
+    const router = useRouter()
+    const linkWa = ref(config.wa)
     const getProducts = async () => {
-      const result = await axios.get(
-        `${config.api_url}products?type=${route.params.type}&sort=${props.sort}&search=${props.search}&page=${route.query.page}`,
-        {
-          headers: config.headers
-        }
-      )
-      products.value = result.data
+      let result
+      if (props.search === '') {
+        result = await axios.get(
+          `${config.api_url}products?type=${route.params.type}&sort=${props.sort}&page=${route.query.page}`,
+          {
+            headers: config.headers
+          }
+        )
+        products.value = result.data
+      } else {
+        result = await axios.get(
+          `${config.api_url}products?type=${route.params.type}&sort=${props.sort}&search=${props.search}`,
+          {
+            headers: config.headers
+          }
+        )
+        products.value = result.data
+      }
     }
-    const apa = ($event) => {
-      console.log($event)
+    const paginate = ($event) => {
+      products.value.result.page = $event
+      router.push({
+        query: { page: $event }
+      })
     }
     watchEffect(() => {
       getProducts()
@@ -136,7 +155,9 @@ export default {
 
     return {
       products,
-      apa
+      props,
+      linkWa,
+      paginate
     }
   }
 }
@@ -146,30 +167,7 @@ export default {
 .card-footer {
   padding: 20px;
   // background: rgb(43, 226, 73);
-  ul {
-    display: flex;
-    justify-content: center;
-li{
-    &.active {
-        background: #9b7ddb!important;
-        a{
-        color: #fdfaf6;
-        }
-      }
-      &.disabled {
-        pointer-events: none;
-        a{
-        color: rgb(168, 168, 168)!important;
-        }
-      }
-      border: 1px solid black;
-        padding: 10px;
-}
-    a {
-      color: rgb(0, 0, 0);
-        padding: 10px;
-    }
-  }
+  display: inline-block;
 }
 .card-product:hover {
   background: #9b7ddb;

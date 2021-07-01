@@ -50,7 +50,7 @@ export default {
           headers: config.headers
         }
       )
-      linkWa.value = `https://api.whatsapp.com/send?phone=6282135293831&text=Saya%20Ingin%20Tanya%20${window.location.href}`
+      linkWa.value = config.wa
       product.value = result.data
     }
     const imageChange = ($event) => {
