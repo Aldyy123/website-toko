@@ -28,65 +28,8 @@
       </div>
     </div>
     </div>
-    <div class="card-footer pb-0 pt-3" v-if="props.search === ''">
-      <VueTailwindPagination :current="products.result.page" :total="products.result.count" :per-page="products.result.perPage" @page-changed="paginate"/>
-    <!-- <ul
-      v-if="products.result.products && products.result.count"
-      class="pagination"
-    >
-      <li
-        :class="{ disabled: products.result.page === 1 }"
-        class="page-item first-item"
-      >
-        <router-link :to="{ query: { page: 1 } }" class="page-link"
-          >First</router-link
-        >
-      </li>
-      <li
-        :class="{ disabled: products.result.page === 1 }"
-        class="page-item previous-item"
-      >
-        <router-link
-          :to="{ query: { page: products.result.page - 1 } }"
-          class="page-link"
-          >Previous</router-link
-        >
-      </li>
-      <li
-        v-for="page in products.result.totalPage"
-        :key="page"
-        :class="{ 'active': products.result.page === page }"
-        class="page-item number-item"
-      >
-        <router-link :to="{ query: { page: page } }" class="page-link">{{
-          page
-        }}</router-link>
-      </li>
-      <li
-        :class="{
-          disabled: products.result.page === products.result.totalPage,
-        }"
-        class="page-item next-item"
-      >
-        <router-link
-          :to="{ query: { page: products.result.page + 1 } }"
-          class="page-link"
-          >Next</router-link
-        >
-      </li>
-      <li
-        :class="{
-          disabled: products.result.page === products.result.totalPage,
-        }"
-        class="page-item last-item"
-      >
-        <router-link
-          :to="{ query: { page: products.result.totalPage } }"
-          class="page-link"
-          >Last</router-link
-        >
-      </li>
-    </ul> -->
+    <div v-if="props.search === ''">
+      <VuePagination :current="products.result.page" :total="products.result.count" :per-page="products.result.perPage" @page-changed="paginate"/>
   </div>
   </section>
 </template>
@@ -94,13 +37,11 @@
 <script>
 /* eslint-disable no-unused-vars */
 /* eslint-disable vue/no-unused-components */
-import '@ocrv/vue-tailwind-pagination/dist/style.css'
 import axios from 'axios'
 import { ref, watchEffect, onUpdated, computed } from 'vue'
 import config from '../store/config'
 import { useRoute, useRouter, RouterLink, useLink } from 'vue-router'
-import Pagination from 'v-pagination-3'
-import VueTailwindPagination from '@ocrv/vue-tailwind-pagination'
+import VuePagination from '@/components/VuePagination'
 
 export default {
   name: 'list-products',
@@ -115,8 +56,7 @@ export default {
     }
   },
   components: {
-    Pagination,
-    VueTailwindPagination
+    VuePagination
   },
   setup (props) {
     const products = ref([])
@@ -127,7 +67,7 @@ export default {
       let result
       if (props.search === '') {
         result = await axios.get(
-          `${config.api_url}products?type=${route.params.type}&sort=${props.sort}&page=${route.query.page}`,
+          `${config.api_dev}products?type=${route.params.type}&sort=${props.sort}&page=${route.query.page}`,
           {
             headers: config.headers
           }
@@ -135,7 +75,7 @@ export default {
         products.value = result.data
       } else {
         result = await axios.get(
-          `${config.api_url}products?type=${route.params.type}&sort=${props.sort}&search=${props.search}`,
+          `${config.api_dev}products?type=${route.params.type}&sort=${props.sort}&search=${props.search}`,
           {
             headers: config.headers
           }
@@ -155,9 +95,9 @@ export default {
 
     return {
       products,
-      props,
       linkWa,
-      paginate
+      paginate,
+      props
     }
   }
 }
