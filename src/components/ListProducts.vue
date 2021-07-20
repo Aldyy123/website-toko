@@ -1,21 +1,10 @@
 <template>
-  <section
-    class="error"
-    v-if="products.status === 'error' || products.result < 0"
-  >
-    <p>{{ products.message }}</p>
-  </section>
-  <section v-else-if="products.status === 'success'">
-    <div class="products-list">
-      <div
-      v-for="product in products.result.products"
-      :key="product._id"
-      class="card-product"
-    >
+  <div class="products-list">
+    <div class="card-product" v-for="product in products" :key="product._id">
       <div class="card-header">
-        <router-link :to="`/detail/${product._id}`"
-          ><img :src="product.images" :alt="product.name"
-        /></router-link>
+        <router-link to="/">
+          <img :src="product.images" :alt="product.name">
+        </router-link>
         <div class="title">
           <h3>{{ product.name }}</h3>
           <div>
@@ -24,82 +13,16 @@
         </div>
       </div>
       <div class="card-bottom">
-        <li><a :href="linkWa" target="_blank">Order Now</a></li>
+        <li><a href="linkWa" target="_blank">Order Now</a></li>
       </div>
     </div>
-    </div>
-    <div v-if="props.search === ''">
-      <VuePagination :current="products.result.page" :total="products.result.count" :per-page="products.result.perPage" @page-changed="paginate"/>
   </div>
-  </section>
 </template>
 
 <script>
-/* eslint-disable no-unused-vars */
-/* eslint-disable vue/no-unused-components */
-import axios from 'axios'
-import { ref, watchEffect, onUpdated, computed } from 'vue'
-import config from '../store/config'
-import { useRoute, useRouter, RouterLink, useLink } from 'vue-router'
-import VuePagination from '@/components/VuePagination'
-
 export default {
   name: 'list-products',
-  props: {
-    search: {
-      type: String,
-      default: ''
-    },
-    sort: {
-      type: String,
-      default: 'dateasc'
-    }
-  },
-  components: {
-    VuePagination
-  },
-  setup (props) {
-    const products = ref([])
-    const route = useRoute()
-    const router = useRouter()
-    const linkWa = ref(config.wa)
-    const getProducts = async () => {
-      let result
-      if (props.search === '') {
-        result = await axios.get(
-          `${config.api_dev}products?type=${route.params.type}&sort=${props.sort}&page=${route.query.page}`,
-          {
-            headers: config.headers
-          }
-        )
-        products.value = result.data
-      } else {
-        result = await axios.get(
-          `${config.api_dev}products?type=${route.params.type}&sort=${props.sort}&search=${props.search}`,
-          {
-            headers: config.headers
-          }
-        )
-        products.value = result.data
-      }
-    }
-    const paginate = ($event) => {
-      products.value.result.page = $event
-      router.push({
-        query: { page: $event }
-      })
-    }
-    watchEffect(() => {
-      getProducts()
-    })
-
-    return {
-      products,
-      linkWa,
-      paginate,
-      props
-    }
-  }
+  props: ['products']
 }
 </script>
 

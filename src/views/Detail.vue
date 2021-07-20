@@ -33,7 +33,7 @@
 /* eslint-disable no-unused-vars */
 import { useRoute } from 'vue-router'
 import { onMounted, reactive, ref, toRefs } from 'vue'
-import config from '../store/config'
+import { config } from '../store/config'
 import axios from 'axios'
 
 export default {

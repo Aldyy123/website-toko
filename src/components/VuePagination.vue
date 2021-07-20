@@ -16,8 +16,7 @@
 </section>
 </template>
 
-<script lang="ts">
-// import '@ocrv/vue-tailwind-pagination/dist/style.css'
+<script>
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'Vue Pagination',
