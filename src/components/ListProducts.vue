@@ -1,10 +1,10 @@
 <template>
   <div class="products-list">
-    <div class="card-product" v-for="product in products" :key="product._id">
+    <router-link :to="`/detail/${product._id}`" class="card-product" v-for="product in products" :key="product._id">
       <div class="card-header">
-        <router-link to="/">
+        <div>
           <img :src="product.images" :alt="product.name">
-        </router-link>
+        </div>
         <div class="title">
           <h3>{{ product.name }}</h3>
           <div>
@@ -15,7 +15,7 @@
       <div class="card-bottom">
         <li><a href="linkWa" target="_blank">Order Now</a></li>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 

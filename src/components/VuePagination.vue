@@ -2,13 +2,26 @@
 <section>
   <div class="container-pagination">
     <ul class="pagination">
-      <li v-if="hasPrev" class="prev">
+      <li v-if="hasPrev()" class="prev">
         <a @click.prevent="changePage(prevPage)">Preview</a>
       </li>
-      <li v-for="page in pages" :key="page">
+      <div v-if="current < 5" style="display: flex;">
+        <li v-for="page in pages" :key="page">
         <a @click.prevent="changePage(page)">{{ page }}</a>
-      </li>
-      <li v-if="hasNext" class="next">
+        </li>
+      </div>
+      <div v-else style="display: flex;">
+        <li>
+          <a @click.prevent="changePage(1)">1</a>
+        </li>
+        <li>
+          <a href="">......</a>
+        </li>
+         <li v-for="page in pages" :key="page">
+          <a @click.prevent="changePage(jumpPaginate(page))">{{ jumpPaginate(page) }}</a>
+        </li>
+      </div>
+      <li v-if="hasNext()" class="next">
         <a @click.prevent="changePage(nextPage)">Next</a>
       </li>
     </ul>
@@ -68,6 +81,9 @@ export default defineComponent({
       if (page > 0 && page <= this.totalPages) {
         this.$emit('page-changed', page)
       }
+    },
+    jumpPaginate (page) {
+      return (page > this.total) ? this.total : page
     }
   },
   computed: {

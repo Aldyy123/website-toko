@@ -18,12 +18,7 @@
         <div class="btn-action">
           <li><a :href=linkWa target="_blank">Chat Whatsapp</a></li>
         </div>
-        <div class="images-slider">
-          <img @click="imageChange" v-for="(image, i) in product.result.images" :key="i"
-            :src="image"
-            :alt="i"
-          />
-        </div>
+        <carousel-product @overview="imageChange" :images="product.result.images"></carousel-product>
       </div>
     </div>
   </main>
@@ -35,26 +30,33 @@ import { useRoute } from 'vue-router'
 import { onMounted, reactive, ref, toRefs } from 'vue'
 import { config } from '../store/config'
 import axios from 'axios'
+import { useStore } from 'vuex'
+import store from '@/store'
+import CarouselProduct from '@/components/CarouselProduct'
 
 export default {
+  components: {
+    CarouselProduct
+  },
   setup () {
     const route = useRoute()
     const product = ref({})
     const imageOverview = ref()
     const linkWa = ref('')
+    const store = useStore()
 
     const getDetail = async () => {
       const result = await axios.get(
         `${config.api_url}products/get-product/${route.params.id}`,
         {
-          headers: config.headers
+          headers: { Authorization: await store.dispatch('getToken') }
         }
       )
       linkWa.value = config.wa
       product.value = result.data
     }
-    const imageChange = ($event) => {
-      imageOverview.value = $event.target.src
+    const imageChange = (event) => {
+      imageOverview.value = event
     }
     getDetail()
     return {
