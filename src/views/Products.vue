@@ -98,6 +98,7 @@ export default {
       getSearch,
       infoProduct,
       paginate,
+      getProducts,
       changeSorting
     }
   }

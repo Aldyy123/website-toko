@@ -2,8 +2,8 @@
 import { createRouter, createWebHashHistory, createWebHistory, useRoute } from 'vue-router'
 import Home from '../views/Home.vue'
 import Services from '../views/Services.vue'
-import Detail from '../views/Detail.vue'
 import { nextTick } from 'vue'
+const Detail = () => import('../views/Detail.vue')
 const Products = () => import('../views/Products.vue')
 const Blogs = () => import('../views/Blogs.vue')
 

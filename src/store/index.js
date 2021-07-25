@@ -15,6 +15,10 @@ export default createStore({
       } catch (error) {
         console.log(error)
       }
+    },
+    async listBlogs () {
+      const api = axios.get(`${config.api_url}blogs`, { headers: { Authorization: await this.dispatch('getToken') } })
+      return api
     }
   },
   modules: {
