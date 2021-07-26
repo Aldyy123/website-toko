@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory, createWebHistory, useRoute } from '
 import Home from '../views/Home.vue'
 import Services from '../views/Services.vue'
 import { nextTick } from 'vue'
+import Blog from '@/views/DetailBlog.vue'
 const Detail = () => import('../views/Detail.vue')
 const Products = () => import('../views/Products.vue')
 const Blogs = () => import('../views/Blogs.vue')
@@ -46,6 +47,12 @@ const routes = [
     name: 'Blogs',
     component: Blogs,
     meta: { title: 'Blogs' }
+  },
+  {
+    path: '/blogs/:id',
+    name: 'Detail',
+    component: Blog,
+    meta: { title: '' }
   }
 ]
 
@@ -55,7 +62,7 @@ const router = createRouter({
 })
 router.afterEach((to, from, fail) => {
   nextTick(() => {
-    document.title = to.meta.title += to.params.type || ''
+    document.title = to.meta.title += to.params.type || to.params.id || ''
   })
 })
 

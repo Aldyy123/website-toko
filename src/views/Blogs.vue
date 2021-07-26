@@ -4,6 +4,7 @@
       <h2>Blogs is updated</h2>
       <div class="grid">
         <div class="card" v-for="blog in blogs" :key="blog._id">
+          <router-link :to="`/blogs/${blog._id}`">
           <div class="card-header">
             <img :src="blog.image" alt="" />
           </div>
@@ -19,6 +20,7 @@
               <p>{{ cutText(blog.description) }}</p>
             </div>
           </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -36,14 +38,12 @@ export default {
   methods: {
     ...mapActions(['listBlogs', 'getToken']),
     cutText (text) {
-      console.log(text.length > 2)
       return (text.length > 379) ? text.slice(0, 379) + ' ...' : text
     }
   },
   async mounted () {
     const blog = await this.listBlogs()
     this.blogs = blog.data.result
-    console.log(this.blogs)
   }
 }
 </script>

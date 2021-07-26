@@ -19,6 +19,14 @@ export default createStore({
     async listBlogs () {
       const api = axios.get(`${config.api_url}blogs`, { headers: { Authorization: await this.dispatch('getToken') } })
       return api
+    },
+    async getBlog (ctx, id) {
+      try {
+        const api = await axios.get(`${config.api_url}blogs/detail/${id}`, { headers: { Authorization: await this.dispatch('getToken') } })
+        return api
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   modules: {
